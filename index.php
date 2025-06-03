@@ -124,6 +124,12 @@
             <p>Todos os direitos reservador</p>
         </div>
     </footer>
+    <script src="js/jquery.js"></script>
+    <script>$(function(){
+        var mensagem = "ZaWarudo!";
+        console.log(mensagem);
+        alert(mensagem);
+    })</script>
 </body>
 
 </html>
