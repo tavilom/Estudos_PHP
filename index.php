@@ -1,135 +1,99 @@
+<?php 
+	include('config.php');
+?>
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/font-awesome.min.css">
-    <link rel="stylesheet" href="style/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descrição do meu site"> <!-- Descrição do site -->
-    <meta name="keywords" content="palavra-chave, do, meu, site"> <!-- Palavras-chave para o site -->
-    <title>Projeto 01</title>
+	<title>Projeto 01</title>
+	<link rel="stylesheet" href="style/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="<?php echo INCLUDE_PATH; ?>style/style.css" rel="stylesheet" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="palavras-chave,do,meu,site">
+	<meta name="description" content="Descrição do meu website">
+	<link rel="icon" href="<?php echo INCLUDE_PATH; ?>favicon.ico" type="image/x-icon" />
+	<meta charset="utf-8" />
 </head>
-
 <body>
+	<base base="<?php echo INCLUDE_PATH; ?>" />
+	<?php 
+		$url = isset($_GET['url']) ? $_GET['url'] : 'home';
 
-    <header>
-        <div class="center">
-            <div class="logo left">Logomacar</div>
-            <nav class="desktop right">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Sobre</a></li>
-                    <li><a href="">Serviços</a></li>
-                    <li><a href="">Contato</a></li>
-                </ul>
-            </nav>
-            <nav class="mobile right">
-                <div class="botao-menu-mobile">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </div>
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Sobre</a></li>
-                    <li><a href="">Serviços</a></li>
-                    <li><a href="">Contato</a></li>
-                </ul>
-            </nav>
-            <div class="clear"></div> <!--clear-->
-        </div><!--center-->
-    </header>
+		switch ($url) {
+			case 'depoimentos':
+				echo '<target target="depoimentos" />';
+				break;
 
-    <section class="banner-principal">
-        <div class="overlay"></div><!--overlay-->
-        <div class="center">
-            <form>
-                <h2>Qual o seu melhor e-mail?</h2>
-                <input type="email" name="email" required>
-                <input type="submit" name="acao" value="Cadastrar!">
-            </form>
-        </div>center
-    </section><!--banner-principal-->
+			case 'servicos':
+				echo '<target target="servicos" />';
+				break;
+		}
+	?>
+	<header>
+		<div class="center">
+			<div class="logo left"><a href="<?php echo INCLUDE_PATH; ?>">Logomarca</a></div><!--logo-->
+			<nav class="desktop right">
+				<ul>
+					<li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+					<li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
+					<li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
+					<li><a realtime="contato" href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
+				</ul>
+			</nav>
+			 <nav class="mobile right">
+			 	<div class="botao-menu-mobile">
+			 		<i class="fa fa-bars" aria-hidden="true"></i>
+			 	</div>
+				<ul>
+					<li><a href="<?php echo INCLUDE_PATH; ?>">Home</a></li>
+					<li><a href="<?php echo INCLUDE_PATH; ?>depoimentos">Depoimentos</a></li>
+					<li><a href="<?php echo INCLUDE_PATH; ?>servicos">Serviços</a></li>
+					<li><a realtime="contato" href="<?php echo INCLUDE_PATH; ?>contato">Contato</a></li>
+				</ul>
+			</nav>
+			<div class="clear"></div>
+		</div><!--center-->
+	</header>
 
-    <section class="descricao-autor">
-        <div class="center">
-            <div class="w50 left">
-                <h2>Otávio Mastrantonio .</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis eius autem vel delectus hic nam placeat nisi, quam odit unde perspiciatis? Repellat est a itaque maiores sed odit explicabo nobis!</p>
-            </div>
-            <div class="w50 left">
-                <img class="" src="image/foto.jpg" alt="pika">
-            </div> <!--w50-->
-            <div class="clear"></div>
-        </div> <!--center-->
-    </section> <!--descricao-autor-->
+	<div class="container-principal">
+		<?php 
+			
+			if(file_exists('pages/'.$url.'.php')){
+				include('pages/'.$url.'.php');
+			}else{
+				if($url != 'depoimentos' && $url != 'servicos'){
+					$pagina404 = true;
+					include('pages/404.php');
+				}else{
+					include('pages/home.php');
+				}
+			}
+		?>
+	</div>
 
-    <section class="especialidades">
-        <div class="center">
-            <h2 class="title">Especialidades</h2>
-            <div class="w33 left box-especialidade">
-                <h3><i class="fa fa-css3" aria-hidden="true"></i></h3>
-                <h4>CSS3</h4>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus voluptatibus alias dicta perspiciatis explicabo quaerat nemo nesciunt! Iste, voluptas harum vero perspiciatis consectetur voluptates ipsam beatae quis rerum laborum!</p>
-            </div><!--box-especialidade-->
-            <div class=" w33 left box-especialidade">
-                <h3><i class="fa fa-html5" aria-hidden="true"></i></h3>
-                <h4>HTML5</h4>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus voluptatibus alias dicta perspiciatis explicabo quaerat nemo nesciunt! Iste, voluptas harum vero perspiciatis consectetur voluptates ipsam beatae quis rerum laborum!</p>
-            </div><!--box-especialidade-->
-            <div class="w33 left box-especialidade">
-                <h3><i class="fa fa-code" aria-hidden="true"></i></h3>
-                <h4>JavaScript</h4>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem temporibus voluptatibus alias dicta perspiciatis explicabo quaerat nemo nesciunt! Iste, voluptas harum vero perspiciatis consectetur voluptates ipsam beatae quis rerum laborum!</p>
-            </div><!--box-especialidade-->
-            <div class="clear"></div>
-        </div><!--center-->
-    </section><!--especialidades-->
+	<footer <?php if(isset($pagina404) && $pagina404 == true) echo 'class="fixed"'; ?>>
+		<div class="center">
+			<p>Todos os direitos reservados</p>
+		</div><!--center-->
+	</footer>
 
-    <section class="extras">
+	<script src="<?php echo INCLUDE_PATH; ?>js/jquery.js"></script>
+	<script src="<?php echo INCLUDE_PATH; ?>js/constants.js"></script>
+	<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDHPNQxozOzQSZ-djvWGOBUsHkBUoT_qH4'></script>
+	<script src="<?php echo INCLUDE_PATH; ?>js/map.js"></script>
+	<script src="<?php echo INCLUDE_PATH; ?>js/scripts.js"></script>
 
-        <div class="center">
-            <div class="w50 left depoimentos-container">
-                <h2 class="title">Depoimentos</h2>
-                <div class="depoimento-single">
-                    <p class="depoimento-descricao">`Lorem ipsum dolor sit amet, consectetur adipisicing elit.`</p>
-                    <p class="nome-autor">Lorem .</p>
-                </div>
-                <div class="depoimento-single">
-                    <p class="depoimento-descricao">`Lorem ipsum dolor sit amet, consectetur adipisicing elit.`</p>
-                    <p class="nome-autor">Lorem .</p>
-                </div>
-                <div class="depoimento-single">
-                    <p class="depoimento-descricao">`Lorem ipsum dolor sit amet, consectetur adipisicing elit.`</p>
-                    <p class="nome-autor">Lorem .</p>
-                </div>
-            </div>
-            <div class="w50 left servicos-container">
-                <h2 class="title">Serviços</h2>
-                <div class="servicos">
-                    <ul>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-                    </ul>
-                </div><!--servicos-->
-            </div><!--w50r-->
-            <div class="clear"></div>
-        </div><!--center-->
-    </section><!--extars-->
+	<?php
+		if($url == 'home' || $url == ''){ // fazendo a verificação se a página é home ou não
+	?>
+	<script src="<?php echo INCLUDE_PATH; ?>js/slider.js"></script>
+	<?php } ?>
+	
 
-
-    <footer>
-        <div class="center">
-            <p>Todos os direitos reservador</p>
-        </div>
-    </footer>
-    <script src="js/jquery.js"></script>
-    <script>$(function(){
-        var mensagem = "ZaWarudo!";
-        console.log(mensagem);
-        alert(mensagem);
-    })</script>
+	<?php
+		if($url == 'contato'){
+	?>
+	<?php } ?>
+	<script src="<?php echo INCLUDE_PATH; ?>js/exemplo.js"></script>
 </body>
-
 </html>
